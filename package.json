@@ -1,0 +1,37 @@
+{
+    "name": "@mindbaz/zonemta-dry-run",
+    "version": "0.0.0",
+    "description": "Change mail receiver for bounces test purpose",
+    "main": "index.js",
+    "author": "Victor Lehouck <vlehouck@mindbaz.com>",
+    "license": "GPL-3.0-or-later",
+    "dependencies": {
+        "request": "2.88.2"
+    },
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "eslint": "^8.10.0",
+        "eslint-config-nodemailer": "^1.2.0",
+        "eslint-config-prettier": "^8.4.0",
+        "sinon": "^13.0.1"
+    },
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test": "make tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Mindbaz/zonemta-dry-run.git"
+    },
+    "keywords": [
+        "zonemta",
+        "dryrun",
+        "dry-run"
+    ],
+    "bugs": {
+        "url": "https://github.com/Mindbaz/zonemta-dry-run/issues"
+    },
+    "homepage": "https://github.com/Mindbaz/zonemta-dry-run#readme"
+}
