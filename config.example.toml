@@ -9,5 +9,8 @@ header = ""
 #Receiver list
 receivers = []
 
-#Fake receiver list | leave empty if you are not testing not found mail bounce
+#Fake receiver list, leave empty if you are not testing not found mail bounce
 fakeReceivers = []
+
+#Modified from, used to return bounces
+sender = ""

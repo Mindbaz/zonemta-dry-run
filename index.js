@@ -23,15 +23,30 @@
 */
 
 
-export const title = 'Dry Run mode';
-export function init(app, done) {
+module.exports.title = 'Dry Run mode';
+
+/**
+ * 
+ * 
+ * 
+ * @param {Object} app 
+ * @param {Object} done 
+ */
+module.exports.init = (app, done) => {
     app.addHook('message:headers', (envelope, messageInfo, next) => {
-        if (envelope.headers.getFirst(app.config.header) !== "yes")
-            next(new Error('no dry run'));
+        // console.log(envelope.headers)
+        if (envelope.headers.getFirst(app.config.header) !== "yes") {
+            console.log('Nok')
+            next();
+        }
         let receivers = app.config.receivers;
         receivers.push(app.config.fakeReceivers);
-        let sender = 'data@mindbaz.com';
-        let mailToUse = receivers[Math.random() * (receivers.length) | 0];
+        let receiverNumber = receivers.length;
+        if (receiverNumber < 2) {
+            next(new Error('No receivers found in config'));
+        }
+        let sender = app.config.sender;
+        let mailToUse = receivers[Math.random() * (receiverNumber - 1) | 0];
         envelope['from'] = sender;
         envelope['to'] = [mailToUse];
         envelope['parsedEnvelope']['to'] = [mailToUse];
