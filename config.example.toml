@@ -2,14 +2,16 @@
 ["modules/@mindbaz/zonemta-dry-run"]
 enabled = true
 
-#Header name to trigger receiver modification (needs to be prefixed with "X-", yes = trigger action)
-header = ""
+header = "X-My-Dry-Run"
 
-#Receiver list
-receivers = []
+receivers = [
+  "adam.brooks@mail.info",
+  "ashley.gonzalez@mail.info",
+  "ashley.harrell@mail.info",
+]
 
-#Fake receiver list, leave empty if you are not testing not found mail bounce
-fakeReceivers = []
+fakeReceivers = [
+  "isThisRealLife@mail.info",
+]
 
-#Modified from, used to return bounces
-sender = ""
+sender = "sender@mail.info"
