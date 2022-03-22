@@ -11,7 +11,7 @@ describe('Dry Run - Changes header to send mail to other receiver provided', () 
     envelopeMock = {
         headers: {
             update: function (param, newAttr) {
-                this[newAttr] = param;
+                this[param] = newAttr;
             },
             getFirst: function (param) {
                 return this[param];
@@ -47,38 +47,25 @@ describe('Dry Run - Changes header to send mail to other receiver provided', () 
     });
 
 
-    // it('should not change header', () => {
-    //     doneMock = sinon.fake.returns();
-    //     nextMock = sinon.fake.returns();
-    //envelopeMock.headers[appMock.config.header] = 'no';
-    //     let res = dryRun.init(appMock, doneMock);
-    //     // except(res.)
-    // })
+    it('should not change header', () => {
+        envelopeMock.headers[appMock.config.header] = 'no';
+        dryRun.init(appMock, doneMock);
+        expect(nextMock.calledThrice).to.be.true;
+    })
 
-    // it('should not change header', () => {
-    //     envelopeMock.headers[appMock.config.header] = 'yes';
-    //     // appMock.config.receivers = ['titi', 'toto'];
-    //     let test = sinon.stub(appMock, 'addHook');
-    //     console.log(appMock)
-
-
-    //     dryRun.init(appMock, doneMock);
-
-
-
-    //     // console.log(res);
-    //     // expect(test[0]['errorWithCallStack'] instanceof Error).to.true;
-    // })
+    it('should not send any mails - missing receivers', () => {
+        envelopeMock.headers[appMock.config.header] = 'yes';
+        dryRun.init(appMock, doneMock);
+        let nextError = nextMock.getCalls()[0].args[0];
+        expect(nextMock.calledTwice).to.be.true;
+        expect(nextError).to.be.instanceof(Error)
+        expect(nextError.toString()).to.equal('Error: No receivers found in config')
+    })
 
     it('should change header', () => {
         envelopeMock.headers[appMock.config.header] = 'yes';
         appMock.config.receivers = ['titi', 'toto'];
-        let test = sinon.stub(appMock, 'addHook').yields('random-error', null);;
         dryRun.init(appMock, doneMock);
-
-
-        let res = test.getCalls()[0];
-        console.log(res.lastArg)
-        expect(res.thisValue.config.receivers.length).to.equal(2)
+        expect(nextMock.calledOnce).to.be.true;
     })
 });
