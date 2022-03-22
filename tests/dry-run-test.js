@@ -4,7 +4,6 @@ var expect = chai.expect;
 var dryRun = require('../index.js');
 
 describe('Dry Run - Changes header to send mail to other receiver provided', () => {
-
     nextMock = undefined;
     doneMock = undefined;
     messageInfoMock = undefined;

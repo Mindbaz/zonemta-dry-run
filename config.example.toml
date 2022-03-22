@@ -1,6 +1,5 @@
 # plugins/dry-run.toml
-#["modules/@mindbaz/zonemta-dry-run"]
-[dry-run]
+["modules/@mindbaz/zonemta-dry-run"]
 enabled = true
 
 #Header name to trigger receiver modification (needs to be prefixed with "X-", yes = trigger action)
