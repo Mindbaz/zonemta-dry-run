@@ -22,7 +22,6 @@
     Header must include 'configured header' = 'yes' to be triggered
 */
 
-
 module.exports.title = 'Dry Run mode';
 
 /**
