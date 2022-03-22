@@ -1,0 +1,15 @@
+# plugins/dry-run.toml
+["modules/@mindbaz/zonemta-dry-run"]
+enabled = true
+
+#Header name to trigger receiver modification (needs to be prefixed with "X-", yes = trigger action)
+header = ""
+
+#Receiver list
+receivers = []
+
+#Fake receiver list, leave empty if you are not testing not found mail bounce
+fakeReceivers = []
+
+#Modified from, used to return bounces
+sender = ""
