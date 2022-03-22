@@ -46,7 +46,6 @@ describe('Dry Run - Changes header to send mail to other receiver provided', () 
         nextMock = sinon.fake.returns();
     });
 
-
     it('should not change header', () => {
         envelopeMock.headers[appMock.config.header] = 'no';
         dryRun.init(appMock, doneMock);
@@ -62,10 +61,31 @@ describe('Dry Run - Changes header to send mail to other receiver provided', () 
         expect(nextError.toString()).to.equal('Error: No receivers found in config')
     })
 
-    it('should change header', () => {
+    it('should change header with real receiver', () => {
         envelopeMock.headers[appMock.config.header] = 'yes';
         appMock.config.receivers = ['titi', 'toto'];
         dryRun.init(appMock, doneMock);
         expect(nextMock.calledOnce).to.be.true;
+        expect(envelopeMock.to.length).to.be.equal(1);
+        expect(envelopeMock.parsedEnvelope.from).to.be.equal('fake@sender.com')
+    })
+
+    it('should change header with fake receiver', () => {
+        envelopeMock.headers[appMock.config.header] = 'yes';
+        appMock.config.fakeReceivers = ['fakeTiti', 'fakeToto'];
+        dryRun.init(appMock, doneMock);
+        expect(nextMock.calledOnce).to.be.true;
+        expect(envelopeMock.to.length).to.be.equal(1);
+        expect(envelopeMock.parsedEnvelope.from).to.be.equal('fake@sender.com')
+    })
+
+    it('should change header with real or fake receiver', () => {
+        envelopeMock.headers[appMock.config.header] = 'yes';
+        appMock.config.receivers = ['titi', 'toto'];
+        appMock.config.fakeReceivers = ['fakeTiti', 'fakeToto'];
+        dryRun.init(appMock, doneMock);
+        expect(nextMock.calledOnce).to.be.true;
+        expect(envelopeMock.to.length).to.be.equal(1);
+        expect(envelopeMock.parsedEnvelope.from).to.be.equal('fake@sender.com')
     })
 });

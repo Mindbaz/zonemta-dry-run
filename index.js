@@ -36,7 +36,6 @@ module.exports.title = 'Dry Run mode';
 module.exports.init = (app, done) => {
     app.addHook('message:headers', (envelope, messageInfo, next) => {
         if (envelope.headers.getFirst(app.config.header) !== "yes") {
-            console.log('oui en fait')
             next();
         }
         let realReceivers = app.config.receivers;
@@ -46,7 +45,7 @@ module.exports.init = (app, done) => {
             next(new Error('No receivers found in config'));
         }
         let sender = app.config.sender;
-        let mailToUse = receivers[Math.random() * (receiverNumber - 1) | 0];
+        let mailToUse = receivers[Math.random() * (receiverNumber) | 0];
         envelope['from'] = sender;
         envelope['to'] = [mailToUse];
         envelope['parsedEnvelope']['to'] = [mailToUse];
