@@ -1,6 +1,6 @@
 {
     "name": "@mindbaz/zonemta-dry-run",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Change mail receiver for bounces test purpose",
     "main": "index.js",
     "author": "Victor Lehouck <vlehouck@mindbaz.com>",

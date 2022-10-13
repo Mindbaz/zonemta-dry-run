@@ -36,9 +36,15 @@ module.exports.init = ( app, done ) => {
     app.addHook ( 'message:headers', ( envelope, messageInfo, next ) => {
         if ( envelope.headers.getFirst ( app.config.header ).toLowerCase () === 'yes' ) {
             let realReceivers = app.config.receivers;
-            let receivers = realReceivers.concat ( app.config.fakeReceivers );
+            let receivers;
+            if (app.config.receivers.length > 0) {
+                receivers = realReceivers.concat ( app.config.fakeReceivers );
+            }
+            else {
+                receivers = realReceivers;
+            }
             let receiverNumber = receivers.length;
-            if ( receiverNumber < 2 ) {
+            if ( receiverNumber < 1 ) {
                 next ( new Error ( 'No receivers found in config' ) );
             }
             let sender = app.config.sender;
